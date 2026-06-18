@@ -3,14 +3,115 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Atölye Dev</title>
+    <title>Atölye</title>
     <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-soft: #f8fafc;
+            --text: #1e293b;
+            --muted: #64748b;
+            --title: #0f172a;
+            --primary: #2563eb;
+            --border: #e2e8f0;
+            --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            --radius-lg: 18px;
+            --radius-md: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .language-menu {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 10;
+        }
+
+        .language-toggle {
+            min-width: 136px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 999px;
+            padding: 9px 13px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #0f172a;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.10);
+            backdrop-filter: blur(10px);
+        }
+
+        .language-toggle .chevron {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .language-list {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            width: 170px;
+            margin: 0;
+            padding: 8px;
+            list-style: none;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .language-menu.open .language-list {
+            display: block;
+        }
+
+        .language-list button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .language-list button:hover,
+        .language-list button.active {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .flag {
+            font-size: 19px;
+            line-height: 1;
         }
 
         header {
@@ -38,24 +139,38 @@
         }
 
         section {
-            background: white;
-            border-radius: 18px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
             padding: 28px;
             margin-bottom: 24px;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            box-shadow: var(--shadow);
         }
 
         h2 {
             margin-top: 0;
-            color: #0f172a;
+            color: var(--title);
+        }
+
+        p {
+            margin: 0 0 14px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 16px;
         }
 
         .app-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
             padding: 18px;
-            margin-top: 16px;
-            background: #f8fafc;
+            background: var(--surface-soft);
         }
 
         .app-card h3 {
@@ -65,124 +180,357 @@
         .app-card a {
             display: inline-block;
             margin-top: 8px;
-            color: #2563eb;
+            color: var(--primary);
             text-decoration: none;
             font-weight: bold;
+        }
+
+
+        .developer-profile {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 11px 16px;
+            border-radius: 999px;
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.20);
+        }
+
+        .developer-profile:hover {
+            text-decoration: none;
+            background: #1d4ed8;
+        }
+
+        .developer-profile::after {
+            content: "↗";
+            font-size: 13px;
+        }
+
+        .contact-box {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface-soft);
         }
 
         footer {
             text-align: center;
             padding: 30px 20px;
-            color: #64748b;
+            color: var(--muted);
             font-size: 14px;
+        }
+
+        [data-lang-content] {
+            display: none;
+        }
+
+        [data-lang-content].active {
+            display: block;
+        }
+
+        @media (max-width: 720px) {
+            .language-menu {
+                top: 12px;
+                right: 12px;
+            }
+
+            .language-toggle {
+                min-width: 124px;
+                padding: 9px 12px;
+            }
+
+            header {
+                padding-top: 82px;
+            }
+
+            header h1 {
+                font-size: 36px;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
+<div class="language-menu" id="languageMenu">
+    <button class="language-toggle" type="button" id="languageToggle" aria-haspopup="true" aria-expanded="false">
+        <span><span class="flag" id="currentFlag">🇹🇷</span> <span id="currentLanguage">Türkçe</span></span>
+        <span class="chevron">▼</span>
+    </button>
+    <ul class="language-list" aria-label="Language selector">
+        <li>
+            <button type="button" data-set-lang="tr" class="active">
+                <span class="flag">🇹🇷</span>
+                <span>Türkçe</span>
+            </button>
+        </li>
+        <li>
+            <button type="button" data-set-lang="en">
+                <span class="flag">🇬🇧</span>
+                <span>English</span>
+            </button>
+        </li>
+    </ul>
+</div>
+
 <header>
-    <h1>Atölye Dev</h1>
-    <p>Independent Android Apps & Creative Software Experiments</p>
+    <div data-lang-content="tr" class="active">
+        <h1>Atölye</h1>
+        <p>Independent Android Apps & Creative Software Experiments</p>
+    </div>
+
+    <div data-lang-content="en">
+        <h1>Atölye</h1>
+        <p>Independent Android Apps & Creative Software Experiments</p>
+    </div>
 </header>
 
 <main>
-    <section>
-        <h2>Hakkımızda</h2>
-        <p>
-            Biz, üniversite yıllarında hobi olarak Android uygulama geliştirmeye başlayan
-            birkaç yazılımcı arkadaşız. Zaman içinde yeni fikirler denemek, farklı teknolojiler
-            öğrenmek ve kullanıcıların işine yarayabilecek küçük ama faydalı uygulamalar
-            üretmek bizim için keyifli bir alışkanlığa dönüştü.
-        </p>
-        <p>
-            Atölye Dev hesabı üzerinden, aklımıza gelen fikirleri hayata geçiriyor,
-            geliştirdiğimiz Android uygulamalarını yayınlıyor ve bu süreçte kendimizi
-            geliştirmeye devam ediyoruz. Amacımız; sade, kullanışlı ve öğrenme odaklı
-            uygulamalar üretmek.
-        </p>
-    </section>
-
-    <section>
-        <h2>About Us</h2>
-        <p>
-            We are a small group of software developer friends who started building Android
-            applications as a hobby during our university years. Over time, experimenting with
-            new ideas, learning different technologies, and creating simple but useful apps
-            became an enjoyable habit for us.
-        </p>
-        <p>
-            Through the Atölye Dev account, we publish Android applications that come from our
-            own ideas, experiments, and learning process. Our goal is to build clean, practical,
-            and user-friendly apps while continuously improving ourselves as developers.
-        </p>
-    </section>
-
-    <section>
-        <h2>Uygulamalarımız / Our Apps</h2>
-
-        <div class="app-card">
-            <h3>Blood Pressure Logbook</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.enesgonez.bloodpressuretracker" target="_blank">
-                Uygulama Linki
+    <div data-lang-content="tr" class="active">
+        <section>
+            <h2>Hakkımızda</h2>
+            <p>
+                Biz, üniversite yıllarında hobi olarak Android uygulama geliştirmeye başlayan
+                birkaç yazılımcı arkadaşız. Zaman içinde yeni fikirler denemek, farklı teknolojiler
+                öğrenmek ve kullanıcıların işine yarayabilecek küçük ama faydalı uygulamalar
+                üretmek bizim için keyifli bir alışkanlığa dönüştü.
+            </p>
+            <p>
+                Atölye hesabı üzerinden, aklımıza gelen fikirleri hayata geçiriyor,
+                geliştirdiğimiz Android uygulamalarını yayınlıyor ve bu süreçte kendimizi
+                geliştirmeye devam ediyoruz. Amacımız; sade, kullanışlı ve öğrenme odaklı
+                uygulamalar üretmek.
+            </p>
+            <a class="developer-profile" href="https://play.google.com/store/apps/dev?id=7563185870279829682" target="_blank" rel="noopener">
+                Google Play Geliştirici Hesabı
             </a>
-        </div>
+        </section>
 
-        <div class="app-card">
-            <h3>Card Guide for Yugioh</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.guideforyugioh" target="_blank">
-                Uygulama Linki
+        <section>
+            <h2>Uygulamalarımız</h2>
+
+            <div class="apps-grid">
+                <div class="app-card">
+                    <h3>Blood Pressure Logbook</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.bloodpressuretracker" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Card Guide for Yugioh</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.guideforyugioh" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Color Trap</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.ColorTrap" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Einbürgerungstest Prep 2026</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.mertnevzatyuksel.einbuergerungtest" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>QR Code - Barcode Reader</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.qrbarcodereader" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Sugar Tracker: Diabetes Log</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.diabetescontrol" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Tips for Yugioh</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.yugiohrehber" target="_blank" rel="noopener">
+                        Uygulama Linki
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>İletişim</h2>
+            <p class="contact-box">
+                <strong>Email:</strong>
+                <a href="mailto:destek.atolye@gmail.com">destek.atolye@gmail.com</a>
+            </p>
+        </section>
+    </div>
+
+    <div data-lang-content="en">
+        <section>
+            <h2>About Us</h2>
+            <p>
+                We are a small group of software developer friends who started building Android
+                applications as a hobby during our university years. Over time, experimenting with
+                new ideas, learning different technologies, and creating simple but useful apps
+                became an enjoyable habit for us.
+            </p>
+            <p>
+                Through the Atölye account, we publish Android applications that come from our
+                own ideas, experiments, and learning process. Our goal is to build clean, practical,
+                and user-friendly apps while continuously improving ourselves as developers.
+            </p>
+            <a class="developer-profile" href="https://play.google.com/store/apps/dev?id=7563185870279829682" target="_blank" rel="noopener">
+                Google Play Developer Profile
             </a>
-        </div>
+        </section>
 
-        <div class="app-card">
-            <h3>Color Trap</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.ColorTrap" target="_blank">
-                Uygulama Linki
-            </a>
-        </div>
+        <section>
+            <h2>Our Apps</h2>
 
-        <div class="app-card">
-            <h3>Einbürgerungstest Prep 2026</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.mertnevzatyuksel.einbuergerungtest" target="_blank">
-                Uygulama Linki
-            </a>
-        </div>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <h3>Blood Pressure Logbook</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.bloodpressuretracker" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
 
-        <div class="app-card">
-            <h3>QR Code - Barcode Reader</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.enesgonez.qrbarcodereader" target="_blank">
-                Uygulama Linki
-            </a>
-        </div>
+                <div class="app-card">
+                    <h3>Card Guide for Yugioh</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.guideforyugioh" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
 
-        <div class="app-card">
-            <h3>Sugar Tracker: Diabetes Log</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.enesgonez.diabetescontrol" target="_blank">
-                Uygulama Linki
-            </a>
-        </div>
+                <div class="app-card">
+                    <h3>Color Trap</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.ColorTrap" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
 
-        <div class="app-card">
-            <h3>Tips for Yugioh</h3>
-            <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.yugiohrehber" target="_blank">
-                Uygulama Linki
-            </a>
-        </div>
-    </section>
+                <div class="app-card">
+                    <h3>Einbürgerungstest Prep 2026</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.mertnevzatyuksel.einbuergerungtest" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
 
-    <section>
-        <h2>İletişim / Contact</h2>
-        <p>
-            <strong>Email:</strong>
-            <a href="mailto:destek.atolye@gmail.com">destek.atolye@gmail.com</a>
-        </p>
-    </section>
+                <div class="app-card">
+                    <h3>QR Code - Barcode Reader</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.qrbarcodereader" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
 
+                <div class="app-card">
+                    <h3>Sugar Tracker: Diabetes Log</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.enesgonez.diabetescontrol" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
+
+                <div class="app-card">
+                    <h3>Tips for Yugioh</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.hamzaburakhan.yugiohrehber" target="_blank" rel="noopener">
+                        App Link
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p class="contact-box">
+                <strong>Email:</strong>
+                <a href="mailto:destek.atolye@gmail.com">destek.atolye@gmail.com</a>
+            </p>
+        </section>
+    </div>
 </main>
 
 <footer>
-    © 2026 Atölye Dev. All rights reserved.
+    <span data-lang-content="tr" class="active">© 2026 Atölye. All rights reserved.</span>
+    <span data-lang-content="en">© 2026 Atölye. All rights reserved.</span>
 </footer>
+
+<script>
+    const languageConfig = {
+        tr: {
+            label: "Türkçe",
+            flag: "🇹🇷",
+            title: "Atölye"
+        },
+        en: {
+            label: "English",
+            flag: "🇬🇧",
+            title: "Atölye"
+        }
+    };
+
+    const menu = document.getElementById("languageMenu");
+    const toggle = document.getElementById("languageToggle");
+    const currentFlag = document.getElementById("currentFlag");
+    const currentLanguage = document.getElementById("currentLanguage");
+    const languageButtons = document.querySelectorAll("[data-set-lang]");
+    const localizedBlocks = document.querySelectorAll("[data-lang-content]");
+
+    function setLanguage(lang) {
+        const selected = languageConfig[lang] || languageConfig.tr;
+
+        document.documentElement.lang = lang;
+        document.title = selected.title;
+        currentFlag.textContent = selected.flag;
+        currentLanguage.textContent = selected.label;
+
+        localizedBlocks.forEach(block => {
+            block.classList.toggle("active", block.getAttribute("data-lang-content") === lang);
+        });
+
+        languageButtons.forEach(button => {
+            button.classList.toggle("active", button.getAttribute("data-set-lang") === lang);
+        });
+
+        localStorage.setItem("atolye-dev-language", lang);
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+    }
+
+    toggle.addEventListener("click", () => {
+        const isOpen = menu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    languageButtons.forEach(button => {
+        button.addEventListener("click", () => setLanguage(button.getAttribute("data-set-lang")));
+    });
+
+    document.addEventListener("click", event => {
+        if (!menu.contains(event.target)) {
+            menu.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    const savedLanguage = localStorage.getItem("atolye-dev-language");
+    const browserLanguage = navigator.language && navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
+    setLanguage(savedLanguage || browserLanguage);
+</script>
 
 </body>
 </html>
