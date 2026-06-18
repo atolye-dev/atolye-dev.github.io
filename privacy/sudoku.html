@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Privacy Policy - Sudoku</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f6f8fb;
+            --surface: #ffffff;
+            --surface-soft: #f9fafb;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --heading: #111827;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --border: #e5e7eb;
+            --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background:
+                    radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 34rem),
+                    linear-gradient(180deg, #ffffff 0%, var(--bg) 42%, var(--bg) 100%);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .page-shell {
+            width: min(100%, 1040px);
+            margin: 0 auto;
+            padding: 48px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+            padding: 36px;
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.78);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: var(--heading);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+        }
+
+        .page-header p {
+            margin: 12px 0 0;
+            color: var(--muted);
+        }
+
+        .policy-main {
+            display: grid;
+            gap: 20px;
+        }
+
+        .policy-card,
+        .language.card,
+        .language {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+        }
+
+        .policy-card + .policy-card,
+        .language + .language {
+            margin-top: 0;
+        }
+
+        section {
+            margin: 0 0 22px;
+        }
+
+        section:last-child,
+        .policy-card > :last-child,
+        .language > :last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            color: var(--heading);
+            font-size: 1.25rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+        }
+
+        p {
+            margin: 0 0 16px;
+        }
+
+        ul {
+            margin: 0 0 16px 1.2rem;
+            padding: 0;
+        }
+
+        li + li {
+            margin-top: 8px;
+        }
+
+        strong {
+            color: var(--heading);
+        }
+
+        hr {
+            width: 100%;
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 20px 0 0;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .lang {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button.lang {
+            appearance: none;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font: inherit;
+            line-height: 1;
+            transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+
+        button.lang:hover {
+            border-color: rgba(37, 99, 235, 0.45);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.10);
+            transform: translateY(-1px);
+        }
+
+        button.lang.active {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .page-footer,
+        .last-updated {
+            margin-top: 28px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .page-footer p,
+        .last-updated p {
+            margin: 0;
+        }
+
+
+
+        .language[hidden],
+        .tab-panel[hidden] {
+            display: none;
+        }
+
+        .tab-panel.active {
+            animation: fadeIn 180ms ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 24px 14px;
+            }
+
+            .page-header,
+            .policy-card,
+            .language.card,
+            .language {
+                padding: 22px;
+                border-radius: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-shell">
+    <header class="page-header">
+        <h1>Privacy Policy</h1>
+    </header><nav aria-label="Language switcher" class="lang" role="tablist"><button aria-controls="lang-en" aria-selected="true" class="lang active" data-target="#lang-en" id="tab-en" role="tab" type="button">English</button><button aria-controls="lang-tr" aria-selected="false" class="lang" data-target="#lang-tr" id="tab-tr" role="tab" type="button">Türkçe</button><button aria-controls="lang-es" aria-selected="false" class="lang" data-target="#lang-es" id="tab-es" role="tab" type="button">Español</button><button aria-controls="lang-el" aria-selected="false" class="lang" data-target="#lang-el" id="tab-el" role="tab" type="button">Ελληνικά</button><button aria-controls="lang-de" aria-selected="false" class="lang" data-target="#lang-de" id="tab-de" role="tab" type="button">Deutsch</button><button aria-controls="lang-pt" aria-selected="false" class="lang" data-target="#lang-pt" id="tab-pt" role="tab" type="button">Português</button><button aria-controls="lang-ru" aria-selected="false" class="lang" data-target="#lang-ru" id="tab-ru" role="tab" type="button">Русский</button><button aria-controls="lang-nl" aria-selected="false" class="lang" data-target="#lang-nl" id="tab-nl" role="tab" type="button">Nederlands</button><button aria-controls="lang-it" aria-selected="false" class="lang" data-target="#lang-it" id="tab-it" role="tab" type="button">Italiano</button><button aria-controls="lang-fr" aria-selected="false" class="lang" data-target="#lang-fr" id="tab-fr" role="tab" type="button">Français</button></nav>
+    <main class="policy-main">
+        <article aria-labelledby="tab-en" class="language policy-card tab-panel active" id="lang-en" lang="en" role="tabpanel">
+            <h2>English</h2>
+            <p>
+                This Privacy Policy explains how Sudoku application handles user information.
+            </p>
+            <p>
+                The application does not collect, transmit, or share any personal information
+                with external servers or third parties.
+            </p>
+            <p>
+                All game-related data such as Sudoku progress, completed games, statistics,
+                and preferences are stored only locally on the user's device using a local
+                database.
+            </p>
+            <p>
+                The application does not use analytics services, tracking technologies,
+                or cloud storage.
+            </p>
+            <p>
+                Users can remove their locally stored data by uninstalling the application
+                or clearing the application's storage from device settings.
+            </p>
+            <p>
+                This Privacy Policy may be updated from time to time.
+            </p>
+        </article>
+        <article aria-labelledby="tab-tr" class="language policy-card tab-panel" hidden="" id="lang-tr" lang="tr" role="tabpanel">
+            <h2>Türkçe</h2>
+            <p>
+                Bu Gizlilik Politikası, Sudoku uygulamasının kullanıcı bilgilerini nasıl
+                işlediğini açıklar.
+            </p>
+            <p>
+                Uygulama herhangi bir kişisel bilgiyi toplamaz, harici sunuculara göndermez
+                ve üçüncü taraflarla paylaşmaz.
+            </p>
+            <p>
+                Sudoku ilerlemeleri, tamamlanan oyunlar, istatistikler ve kullanıcı tercihleri
+                gibi oyun verileri yalnızca kullanıcının cihazında yerel veritabanı kullanılarak saklanır.
+            </p>
+            <p>
+                Uygulama analiz servisleri, takip teknolojileri veya bulut depolama hizmetleri
+                kullanmaz.
+            </p>
+            <p>
+                Kullanıcılar uygulamayı kaldırarak veya cihaz ayarlarından uygulama verilerini
+                temizleyerek yerel verilerini silebilir.
+            </p>
+            <p>
+                Bu Gizlilik Politikası zaman zaman güncellenebilir.
+            </p>
+        </article>
+        <article aria-labelledby="tab-es" class="language policy-card tab-panel" hidden="" id="lang-es" lang="es" role="tabpanel">
+            <h2>Español</h2>
+            <p>
+                Esta Política de Privacidad explica cómo la aplicación Sudoku maneja la
+                información del usuario.
+            </p>
+            <p>
+                La aplicación no recopila, transmite ni comparte información personal con
+                servidores externos o terceros.
+            </p>
+            <p>
+                Los datos relacionados con el juego, como progreso, partidas completadas,
+                estadísticas y preferencias, se almacenan únicamente en el dispositivo del
+                usuario mediante una base de datos local.
+            </p>
+            <p>
+                La aplicación no utiliza servicios de análisis, tecnologías de seguimiento
+                ni almacenamiento en la nube.
+            </p>
+            <p>
+                Los usuarios pueden eliminar sus datos locales desinstalando la aplicación
+                o borrando los datos desde la configuración del dispositivo.
+            </p>
+        </article>
+        <article aria-labelledby="tab-el" class="language policy-card tab-panel" hidden="" id="lang-el" lang="el" role="tabpanel">
+            <h2>Ελληνικά</h2>
+            <p>
+                Αυτή η Πολιτική Απορρήτου εξηγεί τον τρόπο με τον οποίο η εφαρμογή Sudoku
+                διαχειρίζεται τις πληροφορίες του χρήστη.
+            </p>
+            <p>
+                Η εφαρμογή δεν συλλέγει, δεν αποστέλλει και δεν κοινοποιεί προσωπικά δεδομένα
+                σε εξωτερικούς διακομιστές ή τρίτους.
+            </p>
+            <p>
+                Τα δεδομένα του παιχνιδιού, όπως η πρόοδος, τα ολοκληρωμένα παιχνίδια,
+                τα στατιστικά και οι προτιμήσεις αποθηκεύονται μόνο τοπικά στη συσκευή
+                του χρήστη μέσω τοπικής βάσης δεδομένων.
+            </p>
+            <p>
+                Η εφαρμογή δεν χρησιμοποιεί υπηρεσίες ανάλυσης, παρακολούθησης ή αποθήκευση
+                στο cloud.
+            </p>
+        </article>
+        <article aria-labelledby="tab-de" class="language policy-card tab-panel" hidden="" id="lang-de" lang="de" role="tabpanel">
+            <h2>Deutsch</h2>
+            <p>
+                Diese Datenschutzrichtlinie erklärt, wie die Sudoku-Anwendung
+                Benutzerdaten verarbeitet.
+            </p>
+            <p>
+                Die Anwendung sammelt keine persönlichen Daten, überträgt keine Informationen
+                an externe Server und gibt keine Daten an Dritte weiter.
+            </p>
+            <p>
+                Spieldaten wie Fortschritt, abgeschlossene Spiele, Statistiken und Einstellungen
+                werden ausschließlich lokal auf dem Gerät des Nutzers über eine lokale Datenbank gespeichert.
+            </p>
+            <p>
+                Die Anwendung verwendet keine Analyse- oder Tracking-Dienste und keinen
+                Cloud-Speicher.
+            </p>
+        </article>
+        <article aria-labelledby="tab-pt" class="language policy-card tab-panel" hidden="" id="lang-pt" lang="pt" role="tabpanel">
+            <h2>Português</h2>
+            <p>
+                Esta Política de Privacidade explica como o aplicativo Sudoku trata as
+                informações do usuário.
+            </p>
+            <p>
+                O aplicativo não coleta, envia ou compartilha informações pessoais com
+                servidores externos ou terceiros.
+            </p>
+            <p>
+                Dados do jogo, como progresso, partidas concluídas, estatísticas e preferências
+                são armazenados apenas localmente no dispositivo usando um banco de dados local.
+            </p>
+            <p>
+                O aplicativo não utiliza serviços de análise, rastreamento ou armazenamento em nuvem.
+            </p>
+        </article>
+        <article aria-labelledby="tab-ru" class="language policy-card tab-panel" hidden="" id="lang-ru" lang="ru" role="tabpanel">
+            <h2>Русский</h2>
+            <p>
+                Эта политика конфиденциальности описывает обработку данных приложением Sudoku.
+            </p>
+            <p>
+                Приложение не собирает, не передает и не предоставляет персональные данные
+                третьим лицам.
+            </p>
+            <p>
+                Данные игры, включая прогресс, завершенные игры, статистику и настройки,
+                хранятся только локально на устройстве пользователя с использованием
+                локальной базы данных.
+            </p>
+            <p>
+                Приложение не использует аналитику, отслеживание или облачное хранилище.
+            </p>
+        </article>
+        <article aria-labelledby="tab-nl" class="language policy-card tab-panel" hidden="" id="lang-nl" lang="nl" role="tabpanel">
+            <h2>Nederlands</h2>
+            <p>
+                Dit privacybeleid legt uit hoe de Sudoku-applicatie gebruikersinformatie verwerkt.
+            </p>
+            <p>
+                De applicatie verzamelt geen persoonlijke gegevens, verzendt geen informatie
+                naar externe servers en deelt geen gegevens met derden.
+            </p>
+            <p>
+                Spelgegevens zoals voortgang, voltooide spellen, statistieken en voorkeuren
+                worden alleen lokaal opgeslagen op het apparaat van de gebruiker via een lokale
+                database.
+            </p>
+            <p>
+                De applicatie gebruikt geen analyse-, tracking- of cloudopslagdiensten.
+            </p>
+        </article>
+        <article aria-labelledby="tab-it" class="language policy-card tab-panel" hidden="" id="lang-it" lang="it" role="tabpanel">
+            <h2>Italiano</h2>
+            <p>
+                Questa Informativa sulla Privacy spiega come l'applicazione Sudoku gestisce
+                le informazioni degli utenti.
+            </p>
+            <p>
+                L'applicazione non raccoglie, trasmette o condivide dati personali con server
+                esterni o terze parti.
+            </p>
+            <p>
+                I dati di gioco come progressi, partite completate, statistiche e preferenze
+                vengono memorizzati solo localmente sul dispositivo tramite un database locale.
+            </p>
+            <p>
+                L'applicazione non utilizza servizi di analisi, tracciamento o archiviazione cloud.
+            </p>
+        </article>
+        <article aria-labelledby="tab-fr" class="language policy-card tab-panel" hidden="" id="lang-fr" lang="fr" role="tabpanel">
+            <h2>Français</h2>
+            <p>
+                Cette politique de confidentialité explique comment l'application Sudoku
+                gère les informations des utilisateurs.
+            </p>
+            <p>
+                L'application ne collecte, ne transmet et ne partage aucune donnée personnelle
+                avec des serveurs externes ou des tiers.
+            </p>
+            <p>
+                Les données du jeu telles que la progression, les parties terminées,
+                les statistiques et les préférences sont stockées uniquement localement
+                sur l'appareil de l'utilisateur via une base de données locale.
+            </p>
+            <p>
+                L'application n'utilise aucun service d'analyse, de suivi ou de stockage cloud.
+            </p>
+        </article>
+    </main>
+    <div class="last-updated"><hr/><p>
+        Last updated: June 2026
+    </p></div>
+</div>
+<script data-language-tabs="true">
+    const languageTabs = document.querySelectorAll('button.lang[role="tab"]');
+    const languagePanels = document.querySelectorAll('.tab-panel');
+
+    languageTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            const targetSelector = tab.getAttribute('data-target');
+            const targetPanel = document.querySelector(targetSelector);
+            if (!targetPanel) return;
+
+            languageTabs.forEach((item) => {
+                item.classList.remove('active');
+                item.setAttribute('aria-selected', 'false');
+            });
+
+            languagePanels.forEach((panel) => {
+                panel.classList.remove('active');
+                panel.setAttribute('hidden', '');
+            });
+
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            targetPanel.removeAttribute('hidden');
+            targetPanel.classList.add('active');
+            document.documentElement.lang = targetPanel.getAttribute('lang') || 'en';
+        });
+    });
+</script></body>
+</html>
